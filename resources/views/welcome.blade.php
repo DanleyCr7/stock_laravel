@@ -60,7 +60,7 @@
 
 
                                 <div class="col-md-6 offset-md-4">
-                                    <button onclick="location.href='{{ url('dashboard.index') }}'" type="submit" class="btn btn-primary">
+                                    <button onclick="location.href='{{ url('dashboard') }}'" type="submit" class="btn btn-primary">
                                         Register
                                     </button>
                                 </div>

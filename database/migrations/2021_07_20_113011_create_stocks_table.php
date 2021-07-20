@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Stock extends Migration
+class CreateStocksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,7 @@ class Stock extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('stock', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->integer('quantidy');
@@ -30,7 +29,6 @@ class Stock extends Migration
      */
     public function down()
     {
-        //
-        Schema::dropIfExists('stock');
+        Schema::dropIfExists('stocks');
     }
 }

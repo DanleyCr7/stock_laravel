@@ -31,6 +31,11 @@
     <!---->
     <main>
         <div class="container my-5">
+        @if (session('message'))
+            <div class="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-green-700 bg-green-100 border border-green-300 ">
+                {{ session('message') }}
+            </div>
+        @endif
             <div class="card-body text-center">
                 <h4 class="card-title">Controle de estoque</h4>
             </div>
@@ -45,18 +50,28 @@
                             <th scope="col">Valor</th>
                         </tr>
                     </thead>
+                    @foreach ($stock as $sto)
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Pincel</td>
-                            <td>12</td>
-                            <td>R$3.50 </td>
+                            <th scope="row">{{$sto->id}}</th>
+                            <td>{{$sto->name}}</td>
+                            <td>{{$sto->quantidy}}</td>
+                            <td>{{floatval($sto->price)}}</td>
                             <td>
                                 <a class="btn btn-sm btn-primary" href="#"><i class="far fa-edit"></i> editar</a>
-                                <a class="btn btn-sm btn-danger" href="#"><i class="fas fa-trash-alt"></i> deletar</a>
+                                <!-- <a class="btn btn-sm btn-danger" href="{{ route('stock.destroy', [$sto->id]) }}"  ><i class="fas fa-trash-alt"></i> deletar</a> -->
+                                <form method="POST" action="{{ route('stock.destroy', [$sto->id]) }}">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-sm btn-danger" value="Delete user">
+                                    </div>
+                                </form>
                             </td>
                         </tr>
                     </tbody>
+                    @endforeach
                 </table>
             </div>
             <!-- Large modal -->
