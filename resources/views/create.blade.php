@@ -2,6 +2,9 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <div class="container">
+   <div class="row">
+    <div class="col-md-4 mx-auto">
+    <div class="myform form ">
     <form action="{{ route('stock.store') }}" method="post">
     @csrf 
     <div class="mb-3">
@@ -19,4 +22,10 @@
     
     <button type="submit" class="btn btn-primary">Cadastrar</button>
     </form>
+    </div>
+    </div>
+</div>
+
+
+
 </div>

@@ -26,7 +26,18 @@
 
 <body>
     <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#"><h4 class="card-title">Control</h4></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
+    <div class="collapse navbar-collapse d-flex justify-content-end p-2" id="navbarSupportedContent">
+        <form method="POST" action="{{ route('logout') }}" class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sair</button>
+        </form>
+    </div>
+    </nav>
     </header>
     <!---->
     <main>
@@ -36,11 +47,13 @@
                 {{ session('message') }}
             </div>
         @endif
-            <div class="card-body text-center">
+            <div>
                 <h4 class="card-title">Controle de estoque</h4>
             </div>
             <div class="card">
-                <button id="add__new__list" type="button" onclick="location.href='{{ url('create') }}'" class="btn btn-success"><i class="fas fa-plus"></i>Novo</button>
+                <div class="d-flex justify-content-end p-2">
+                    <button id="add__new__list" type="button" onclick="location.href='{{ url('create') }}'" class="btn btn-success"><i class="fas fa-plus"></i>Novo</button>
+                </div>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -48,6 +61,8 @@
                             <th scope="col">Nome</th>
                             <th scope="col">Quantidade</th>
                             <th scope="col">Valor</th>
+
+                            <th scope="col">Editar</th>
                         </tr>
                     </thead>
                     @foreach ($stock as $sto)
@@ -58,16 +73,16 @@
                             <td>{{$sto->quantidy}}</td>
                             <td>{{floatval($sto->price)}}</td>
                             <td>
-                                <a class="btn btn-sm btn-primary" href="{{ route('stock.edit', [$sto->id]) }}"><i class="far fa-edit"></i> editar</a>
-                                <!-- <a class="btn btn-sm btn-danger" href="{{ route('stock.destroy', [$sto->id]) }}"  ><i class="fas fa-trash-alt"></i> deletar</a> -->
+                            <div class="row">
+                                <div>
+                                <a class="btn btn-sm btn-primary mr-1" href="{{ route('stock.edit', [$sto->id]) }}"><i class="far fa-edit"></i> editar</a>
+                                </div>
                                 <form method="POST" action="{{ route('stock.destroy', [$sto->id]) }}">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-
-                                    <div class="form-group">
-                                        <input type="submit" class="btn btn-sm btn-danger" value="Delete user">
-                                    </div>
+                                    <button type="submit" class="btn btn-sm btn-danger"><i class="far fa-delete"></i> deletar</button>
                                 </form>
+                            </div>
                             </td>
                         </tr>
                     </tbody>
