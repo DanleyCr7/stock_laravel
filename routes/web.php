@@ -23,6 +23,10 @@ Route::get('/', function () {
 // Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 Route::delete('/delete/{id}', [StockController::class, 'destroy'])->name('stock.destroy');
 Route::get('/dashboard', [StockController::class, 'index'])->name('posts.index');
+Route::get('/create', [StockController::class, 'create'])->name('stock.create');
+Route::post('/stock', [StockController::class, 'store'])->name('stock.store');
+Route::put('/stock/{id}', [StockController::class, 'update'])->name('stock.update');
+Route::get('/stock/edit/{id}', [StockController::class, 'edit'])->name('stock.edit');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

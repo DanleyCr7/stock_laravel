@@ -40,7 +40,7 @@
                 <h4 class="card-title">Controle de estoque</h4>
             </div>
             <div class="card">
-                <button id="add__new__list" type="button" class="btn btn-success" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-plus"></i>Novo</button>
+                <button id="add__new__list" type="button" onclick="location.href='{{ url('create') }}'" class="btn btn-success"><i class="fas fa-plus"></i>Novo</button>
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -58,7 +58,7 @@
                             <td>{{$sto->quantidy}}</td>
                             <td>{{floatval($sto->price)}}</td>
                             <td>
-                                <a class="btn btn-sm btn-primary" href="#"><i class="far fa-edit"></i> editar</a>
+                                <a class="btn btn-sm btn-primary" href="{{ route('stock.edit', [$sto->id]) }}"><i class="far fa-edit"></i> editar</a>
                                 <!-- <a class="btn btn-sm btn-danger" href="{{ route('stock.destroy', [$sto->id]) }}"  ><i class="fas fa-trash-alt"></i> deletar</a> -->
                                 <form method="POST" action="{{ route('stock.destroy', [$sto->id]) }}">
                                     {{ csrf_field() }}
