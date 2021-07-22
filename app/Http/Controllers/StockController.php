@@ -9,6 +9,20 @@ use Illuminate\Http\Request;
 class StockController extends Controller
 {
     //
+
+    public function editAll(StockRequest $request){
+        dd($request->all()['produto']);
+        $stockInstance = new Stock;
+
+        $value = $request->all()['produto'];
+        // dd($value);
+        $index = 'id';
+
+        \Batch::update($stockInstance, $value, $index);
+        
+        return redirect()->route('posts.index');
+    }
+
     public function index()
     {
         $stock = Stock::latest()->paginate();

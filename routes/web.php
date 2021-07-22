@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth'])->group(function () {
-    Route::delete('/delete/{id}', [StockController::class, 'destroy'])->name('stock.destroy');
+    Route::put('/update', [StockController::class, 'editAll'])->name('stock.edits');
+    Route::get('/delete/{id}', [StockController::class, 'destroy'])->name('stock.destroy');
     Route::get('/dashboard', [StockController::class, 'index'])->middleware(['auth'])->name('posts.index');
     Route::get('/create', [StockController::class, 'create'])->name('stock.create');
     Route::post('/stock', [StockController::class, 'store'])->name('stock.store');

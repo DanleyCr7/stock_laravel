@@ -1,6 +1,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <!------ Include the above in your HEAD tag ---------->
 <!doctype html>
 <html lang="en">
@@ -34,6 +35,7 @@
 
     <div class="collapse navbar-collapse d-flex justify-content-end p-2" id="navbarSupportedContent">
         <form method="POST" action="{{ route('logout') }}" class="form-inline my-2 my-lg-0">
+             {{ csrf_field() }}
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sair</button>
         </form>
     </div>
@@ -51,8 +53,16 @@
                 <h4 class="card-title">Controle de estoque</h4>
             </div>
             <div class="card">
+            <form action="{{ route('stock.edits') }}" method="post">
+                        @csrf 
+                        @method('put') 
                 <div class="d-flex justify-content-end p-2">
-                    <button id="add__new__list" type="button" onclick="location.href='{{ url('create') }}'" class="btn btn-success"><i class="fas fa-plus"></i>Novo</button>
+                    <div>
+                        <button id="add__new__list" type="button" onclick="location.href='{{ url('create') }}'" class="btn btn-success"><i class="fas fa-plus"></i>Novo</button>
+                    </div>
+                    
+                        <button id="add__new__list" type="submit" class="btn btn-primary ml-3"><i class="fas fa-plus"></i>Editar todos</button>
+                    
                 </div>
                 <table class="table table-hover">
                     <thead>
@@ -61,27 +71,31 @@
                             <th scope="col">Nome</th>
                             <th scope="col">Quantidade</th>
                             <th scope="col">Valor</th>
-
                             <th scope="col">Editar</th>
                         </tr>
                     </thead>
-                    @foreach ($stock as $sto)
+                    @foreach ($stock as $key=>$sto)
                     <tbody>
                         <tr>
-                            <th scope="row">{{$sto->id}}</th>
-                            <td>{{$sto->name}}</td>
-                            <td>{{$sto->quantidy}}</td>
-                            <td>{{floatval($sto->price)}}</td>
+                            <th scope="row">
+                                {{$sto->id}}   
+                            </th>
+                            <td>
+                                <input value="{{$sto->id}}" name="produto[{{$key}}][id]" id="id" type="hidden"class="form-control">                                
+                                <input value="{{$sto->name}}" name="produto[{{$key}}][name]" id="name" type="text"class="form-control">                                
+                            </td>
+                            <td>
+                                <input value="{{$sto->quantidy}}" name="produto[{{$key}}][quantidy]" id="quantidy" type="text"class="form-control">                                
+                            </td>
+                            <td>
+                               <input value="{{$sto->price}}" name="produto[{{$key}}][price]" id="price" type="text" class="form-control" >                                
+                            </td>
                             <td>
                             <div class="row">
                                 <div>
                                 <a class="btn btn-sm btn-primary mr-1" href="{{ route('stock.edit', [$sto->id]) }}"><i class="far fa-edit"></i> editar</a>
                                 </div>
-                                <form method="POST" action="{{ route('stock.destroy', [$sto->id]) }}">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <button type="submit" class="btn btn-sm btn-danger"><i class="far fa-delete"></i> deletar</button>
-                                </form>
+                                <a type="submit" class="btn btn-sm btn-danger" href="{{ route('stock.destroy', [$sto->id]) }}"><i class="far fa-delete"></i> deletar</a>
                             </div>
                             </td>
                         </tr>
@@ -89,6 +103,7 @@
                     @endforeach
                 </table>
             </div>
+            </form>
             <!-- Large modal -->
 
 
@@ -133,9 +148,7 @@
 
     <!---->
     <footer>
-        <div class="container bg-info p-5">
-
-        </div>
+        
     </footer>
 </body>
 
